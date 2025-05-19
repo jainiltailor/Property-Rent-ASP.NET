@@ -1,0 +1,197 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ClientMasterPage.Master.cs" Inherits="RenatlProperty.Site1" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>Rental Property</title>
+
+    <!-- CSS Dependencies -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+    <!-- Page-specific head content -->
+    <asp:ContentPlaceHolder ID="head" runat="server" />
+
+    <!-- Custom Styling -->
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #059669;
+            --bg-color: #f9fafb;
+            --text-color: #1f2937;
+            --light-gray: #f3f4f6;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        body.dark-mode {
+            --bg-color: #121826;
+            --text-color: #e5e7eb;
+            --light-gray: #1f2937;
+            --border-color: #374151;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode header {
+            background-color: rgba(17, 24, 39, 0.95);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar {
+            padding: 0;
+        }
+
+        .nav-link {
+            color: #4b5563;
+            margin: 0 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        body.dark-mode .nav-link {
+            color: #d1d5db;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            border: none;
+            background: transparent;
+            font-size: 18px;
+            cursor: pointer;
+            color: #6b7280;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .theme-toggle {
+            color: #d1d5db;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 24px 0;
+            color: #6b7280;
+            font-size: 0.875rem;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .footer {
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+
+        <!-- Header -->
+        <header>
+            <div class="container d-flex justify-content-between align-items-center py-3">
+                <div class="logo">
+                    <img src="logo.jpg" alt="Rental Logo" style="height: 40px;" />
+                </div>
+                <div class="d-flex align-items-center">
+                    <!-- Dark mode toggle -->
+                   <button type="button" class="theme-toggle btn btn-light mr-3" id="themeToggle">
+    <i class="fas fa-moon"></i>
+</button>
+
+                     
+
+                    <!-- Navigation -->
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <div class="navbar-nav">
+                                <asp:HyperLink ID="HomeLink" runat="server" NavigateUrl="~/Home.aspx" CssClass="nav-link">Home</asp:HyperLink>
+                                <asp:HyperLink ID="PropertyLink" runat="server" NavigateUrl="~/propertylistings.aspx" CssClass="nav-link">Properties</asp:HyperLink>
+                                <asp:HyperLink ID="AboutLink" runat="server" NavigateUrl="~/AboutUS.aspx" CssClass="nav-link">About</asp:HyperLink>
+                                <asp:HyperLink ID="ContactLink" runat="server" NavigateUrl="~/Contact.aspx" CssClass="nav-link">Contact</asp:HyperLink>
+                                <asp:HyperLink ID="LoginLink" runat="server" NavigateUrl="~/Login.aspx" CssClass="nav-link">Login</asp:HyperLink>
+                                <asp:HyperLink ID="RegisterLink" runat="server" NavigateUrl="~/Register.aspx" CssClass="nav-link">Register</asp:HyperLink>
+                                <asp:HyperLink ID="LogoutLink" runat="server" NavigateUrl="~/Logout.aspx" CssClass="nav-link">Logout</asp:HyperLink>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container py-4">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; <%= DateTime.Now.Year %> Property Rental. All rights reserved.</p>
+        </footer>
+    </form>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Dark mode toggle script
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+
+            themeToggle.addEventListener('click', function () {
+                body.classList.toggle('dark-mode');
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
